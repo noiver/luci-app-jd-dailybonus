@@ -1,0 +1,4 @@
+config global
+	option auto_update_time '2'
+	option auto_update '1'
+
