@@ -2,12 +2,14 @@ local jd = "jd-dailybonus"
 local uci = luci.model.uci.cursor()
 local sys = require "luci.sys"
 
+
 m = Map(jd)
 -- [[ 基本设置 ]]--
 
 s = m:section(TypedSection, "global",
               translate("Base Config"))
 s.anonymous = true
+
 
 o = s:option(DummyValue, "", "")
 o.rawhtml = true
@@ -31,5 +33,4 @@ o.rmempty = false
 o = s:option(DummyValue, "", "")
 o.rawhtml = true
 o.template = "jd-dailybonus/update_service"
-
 return m

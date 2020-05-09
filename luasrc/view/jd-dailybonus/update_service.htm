@@ -92,9 +92,23 @@
 size="0" value="<%= translate("Save Cookies And Start Services") %>">
 </div>
 
+<%+cbi/valuefooter%>
+<%+cbi/valueheader%>
+<label class="cbi-value-title"><%= translate("Version") %></label>
+<div class="cbi-value-field">
+	<input class="cbi-button cbi-button-reload" id="update_script" type="button" disabled
+size="0" value="<%= translate("checking the New Version ...") %>">
+</div>
+<%+cbi/valuefooter%>
+
 <script type="text/javascript">
 
 	const SAVE_URL = '<%=luci.dispatcher.build_url("admin", "services", "jd-dailybonus","run")%>';
+	const CHECK_URL = '<%=luci.dispatcher.build_url("admin", "services", "jd-dailybonus","check_update")%>';
+	const UPDATE_URL = '<%=luci.dispatcher.build_url("admin", "services", "jd-dailybonus","update")%>';
+	const UPDATING_TEXT = '<%= translate("Updating script,please wait ...") %>';
+	const NEW_VERSION = '<%= translate("Is currently the latest version") %>';
+	const UPDATE_TEXT = '<%= translate("There is a new version, click to update") %>';
 
 	var _responseLen;
 	var noChange = 0;
@@ -150,6 +164,30 @@ size="0" value="<%= translate("Save Cookies And Start Services") %>">
 		return false;
 	});
 
+	//更新脚本
+	$("#update_script").click(function () {
+		$("#update_script").val(UPDATING_TEXT);
+		//console.log(data);
+		var data = {
+			version: $("#update_script").attr("data-version")
+		}
+		$.ajax({
+			type: "post",
+			url: UPDATE_URL,
+			dataType: "json",
+			data: data,
+			success: function (d) {
+				if (d.error == 0) {
+					$("#update_script").attr("disabled",true);
+					$("#update_script").val(NEW_VERSION);
+				} else {
+					alert("更新错误请重试");
+				}
+			}
+		});
+		return false;
+	});
+
 
 	function get_realtime_log() {
 		$.ajax({
@@ -180,6 +218,26 @@ size="0" value="<%= translate("Save Cookies And Start Services") %>">
 		});
 	}
 
-</script>
+	function check_version(){
+		$.ajax({
+			url: CHECK_URL,
+			dataType: 'json',
+			error: function (xhr) {
+				
+			},
+			success: function (data) {				
+				if(data.need_update){
+					$("#update_script").attr("disabled",false);
+					$("#update_script").val(UPDATE_TEXT);
+					$("#update_script").attr("data-version",data.new_version);
+				}else{
+					
+					$("#update_script").val(NEW_VERSION);
+				}
+				
+			}
+		});
+	}
+	check_version();
 
-<%+cbi/valuefooter%>
+</script>

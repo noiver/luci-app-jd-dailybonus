@@ -2,13 +2,12 @@
 Luci for JD dailybonus Script for Openwrt  
 一个运行在openwrt下的京东签到插件。
 
-### Update Log 2020-05-06  
+### Update Log 2020-05-09  
 
 #### Updates
 
-- UPD: 增加了一个cookie工具zip包，如果crx安装不上，可以解压zip包内容，加载已解压的扩展包。
-- UPD: 增加了第二个账号的cookie，可以实现双签到
-- UPD: 修复部分文字解释
+- UPD: 增加脚本在线版本检测和更新功能
+
 
 详情见[具体日志](./relnotes.txt)。 
 

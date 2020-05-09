@@ -46,3 +46,12 @@ msgstr "签到信息"
 msgid "Service is running,Please do not refresh!"
 msgstr "服务正在执行中，请勿刷新！"
 
+msgid "Updating script,please wait ..."
+msgstr "正在更新脚本，请稍候 ..."
+
+msgid "Is currently the latest version"
+msgstr "正当前已是最新版本。"
+
+msgid "There is a new version, click to update"
+msgstr "有新的版本，请点击更新"
+
