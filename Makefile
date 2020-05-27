@@ -6,7 +6,7 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=Luci for JD dailybonus Script
+LUCI_TITLE:=Luci for JD dailybonus Script 
 LUCI_DEPENDS:=+node +node-request +curl
 LUCI_PKGARCH:=all
 PKG_VERSION:=0.7
