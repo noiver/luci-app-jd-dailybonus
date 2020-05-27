@@ -1,5 +1,5 @@
 config global
-	option version '0.99'
+	option version '1.08'
 	option auto_update_time '2'
 	option auto_update '1'
 
