@@ -50,8 +50,11 @@ msgid "Updating script,please wait ..."
 msgstr "正在更新脚本，请稍候 ..."
 
 msgid "Is currently the latest version"
-msgstr "正当前已是最新版本。"
+msgstr "当前已是最新版本。"
 
 msgid "There is a new version, click to update"
 msgstr "有新的版本，请点击更新"
+
+msgid "checking the New Version ..."
+msgstr "正在检查是否存在新的版本 ..."
 

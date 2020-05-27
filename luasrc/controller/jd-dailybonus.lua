@@ -53,7 +53,6 @@ function run()
         local date = os.date("%Y-%m-%d %H:%M:%S", os.time())
         luci.sys.call("echo '".. date .."' >/www/JD_DailyBonus.htm 2>/dev/null")
         luci.sys.call("nohup node /usr/share/jd-dailybonus/JD_DailyBonus.js >>/www/JD_DailyBonus.htm 2>/dev/null &")
-        luci.sys.call("echo 'end sign' >>/www/JD_DailyBonus.htm 2>/dev/null")
         e.error = 0
     else
         e.error = 1

@@ -96,7 +96,7 @@ size="0" value="<%= translate("Save Cookies And Start Services") %>">
 <%+cbi/valueheader%>
 <label class="cbi-value-title"><%= translate("Version") %></label>
 <div class="cbi-value-field">
-	<input class="cbi-button cbi-button-reload" id="update_script" type="button" disabled
+	<input class="cbi-button cbi-button-reload" id="update_script" type="button" 
 size="0" value="<%= translate("checking the New Version ...") %>">
 </div>
 <%+cbi/valuefooter%>
@@ -181,6 +181,7 @@ size="0" value="<%= translate("checking the New Version ...") %>">
 					$("#update_script").attr("disabled",true);
 					$("#update_script").val(NEW_VERSION);
 				} else {
+					$("#update_script").attr("disabled",false);
 					alert("更新错误请重试");
 				}
 			}
@@ -198,7 +199,7 @@ size="0" value="<%= translate("checking the New Version ...") %>">
 			},
 			success: function (response) {
 				var retArea = document.getElementById("log_content3");
-				if (response.search("end sign") != -1) {
+				if (response.search("脚本用时") != -1) {
 					noChange++;
 				}
 				console.log(noChange);
