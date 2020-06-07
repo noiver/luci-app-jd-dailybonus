@@ -199,7 +199,7 @@ size="0" value="<%= translate("checking the New Version ...") %>">
 			},
 			success: function (response) {
 				var retArea = document.getElementById("log_content3");
-				if (response.search("脚本用时") != -1) {
+				if (response.search(" 秒") != -1) {
 					noChange++;
 				}
 				console.log(noChange);
