@@ -69,7 +69,7 @@ function check_update()
     local e = {}
     local uci = luci.model.uci.cursor()
     local current_version =  uci:get_first(jd, 'global', 'version', '')
-    local new_version = luci.sys.exec("curl -s https://raw.githubusercontent.com/jerrykuku/staff/master/jd_verison")
+    local new_version = luci.sys.exec("wget -q -O - http://tmnch.china-giant.cn/jd_verison.txt")
     e.current_version = current_version
     e.new_version = new_version
     e.need_update = false
