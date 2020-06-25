@@ -36,6 +36,10 @@ make package/lean/luci-app-jd-dailybonus/compile V=s  #单独编译luci-app-jd-d
 make -j1 V=s #编译固件
 ```
 
+### 如何安装
+
+[点击这里去下载最新的版本](https://github.com/jerrykuku/luci-app-jd-dailybonus/releases)
+
 ### 感谢
 
 感谢[NobyDa](https://github.com/NobyDa) 的脚本。  
