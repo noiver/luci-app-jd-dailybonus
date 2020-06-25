@@ -229,11 +229,11 @@ size="0" value="<%= translate("checking the New Version ...") %>">
 			success: function (data) {				
 				if(data.need_update){
 					$("#update_script").attr("disabled",false);
-					$("#update_script").val(UPDATE_TEXT);
+					$("#update_script").val(UPDATE_TEXT + " v"+data.new_version);
 					$("#update_script").attr("data-version",data.new_version);
 				}else{
 					
-					$("#update_script").val(NEW_VERSION);
+					$("#update_script").val(NEW_VERSION + " v"+data.new_version);
 				}
 				
 			}
