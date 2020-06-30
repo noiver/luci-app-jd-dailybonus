@@ -19,7 +19,7 @@ define Package/luci-app-jd-dailybonus
 	SUBMENU:=3. Applications
 	TITLE:=Luci for JD dailybonus Script 
 	PKGARCH:=all
-	DEPENDS:=+node +node-request +coreutils-nohup
+	DEPENDS:=+node +node-request +coreutils-nohup +wget
 endef
 
 define Build/Prepare
