@@ -6,7 +6,7 @@
 
 include $(TOPDIR)/rules.mk
 PKG_NAME:=luci-app-jd-dailybonus
-LUCI_DEPENDS:=+node +node-request +curl
+LUCI_DEPENDS:=+node +node-request +coreutils-nohup +wget
 LUCI_PKGARCH:=all
 PKG_VERSION:=0.7.6
 PKG_RELEASE:=20200625
