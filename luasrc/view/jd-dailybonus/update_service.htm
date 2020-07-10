@@ -277,15 +277,18 @@
 
 			},
 			success: function (data) {
-				if (data.new_version > <%= self.version %>) {
-			$("#update_script").attr("disabled", false);
-			$("#update_script").val(UPDATE_TEXT + " v" + data.new_version);
-			$("#update_script").attr("data-version", data.new_version);
-			newVersion = data.new_version;
-			needUpdate = true;
-		} else {
-			$("#update_script").val(NEW_VERSION + " v" + data.new_version);
-		}
+				if(data.new_version == 501){
+					$("#update_script").attr("disabled", false);
+					$("#update_script").val("无法获取新版本，请重试！");
+				}else if (data.new_version > <%= self.version %>) {
+					$("#update_script").attr("disabled", false);
+					$("#update_script").val(UPDATE_TEXT + " v" + data.new_version);
+					$("#update_script").attr("data-version", data.new_version);
+					newVersion = data.new_version;
+					needUpdate = true;
+				} else {
+					$("#update_script").val(NEW_VERSION + " v" + data.new_version);
+				}
 
 	}
 		});
