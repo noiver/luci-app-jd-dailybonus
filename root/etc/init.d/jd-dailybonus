@@ -11,6 +11,7 @@ START=25
 
 NAME=jd-dailybonus
 CRON_FILE=/etc/crontabs/root
+JD_SCRIPT=/usr/share/jd-dailybonus/JD_DailyBonus.js
 
 uci_get_by_name() {
 	local ret=$(uci get $NAME.$1.$2 2>/dev/null)
@@ -25,7 +26,8 @@ uci_get_by_type() {
 
 add_cron() {
 	sed -i '/jd-dailybonus/d' $CRON_FILE
-	[ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo "2 $(uci_get_by_type global auto_update_time) * * * /usr/share/jd-dailybonus/app.sh" >> $CRON_FILE
+	[ $(uci_get_by_type global auto_run 0) -eq 1 ] && echo "5 $(uci_get_by_type global auto_run_time) * * * /usr/share/jd-dailybonus/newapp.sh -r" >> $CRON_FILE
+	[ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo "1 $(uci_get_by_type global auto_update_time) * * * /usr/share/jd-dailybonus/newapp.sh -u" >> $CRON_FILE
 	crontab $CRON_FILE
 }
 
@@ -34,13 +36,22 @@ del_cron() {
 	/etc/init.d/cron restart
 }
 
+fill_cookie() {
+    cookie1=$(uci_get_by_type global cookie)
+    if [ ! "$cookie1" = "" ]; then
+        varb="var Key = '$cookie1'" 
+        sed -i "s/^var Key =.*/$varb/g" $JD_SCRIPT
+    fi
+
+    cookie2=$(uci_get_by_type global cookie2)
+    if [ ! "$cookie2" = "" ]; then
+        varb2="var DualKey = '$cookie2'" 
+        sed -i "s/^var DualKey =.*/$varb2/g" $JD_SCRIPT
+    fi
+}
+
 start_service(){
-	varb="var Key = '$(uci_get_by_type global cookie)'" 
-	varb2="var DualKey = '$(uci_get_by_type global cookie2)'" 
-	sed -i '18d' /usr/share/jd-dailybonus/JD_DailyBonus.js
-	sed -i "17a $varb" -i /usr/share/jd-dailybonus/JD_DailyBonus.js
-	sed -i '20d' /usr/share/jd-dailybonus/JD_DailyBonus.js
-	sed -i "19a $varb2" -i /usr/share/jd-dailybonus/JD_DailyBonus.js
+	fill_cookie
 	add_cron
 }
 
