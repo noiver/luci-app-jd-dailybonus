@@ -68,11 +68,10 @@ local_ver=$(uci_get_by_type global version)
 
 add_cron() {
 	sed -i '/jd-dailybonus/d' $CRON_FILE
-	[ $(uci_get_by_type global auto_run 0) -eq 1 ] && echo "5 $(uci_get_by_type global auto_run_time) * * * /usr/share/jd-dailybonus/newapp.sh -r" >> $CRON_FILE
-	[ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo "1 $(uci_get_by_type global auto_update_time) * * * /usr/share/jd-dailybonus/newapp.sh -u" >> $CRON_FILE
+	[ $(uci_get_by_type global auto_run 0) -eq 1 ] && echo '5 '$(uci_get_by_type global auto_run_time)' * * * /bin/bash -c "sleep $[RANDOM % 180]s"; /usr/share/jd-dailybonus/newapp.sh -r' >> $CRON_FILE
+	[ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo '1 '$(uci_get_by_type global auto_update_time)' * * * /usr/share/jd-dailybonus/newapp.sh -u' >> $CRON_FILE
 	crontab $CRON_FILE
 }
-
 
 # Run Script
 run() {

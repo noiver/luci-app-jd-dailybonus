@@ -7,8 +7,8 @@
 include $(TOPDIR)/rules.mk
 PKG_NAME:=luci-app-jd-dailybonus
 LUCI_PKGARCH:=all
-PKG_VERSION:=0.7.7
-PKG_RELEASE:=20200710
+PKG_VERSION:=0.7.8
+PKG_RELEASE:=20200713
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -46,8 +46,8 @@ if [ -z "$${IPKG_INSTROOT}" ]; then
 	( . /etc/uci-defaults/luci-jd-dailybonus ) && rm -f /etc/uci-defaults/luci-jd-dailybonus
 	rm -rf /tmp/luci-indexcache
 	rm -rf /tmp/luci-modulecache/*
-	chmod 755 /etc/init.d/jd-dailybonus >/dev/null 2>&1
-	chmod 755 /usr/share/jd-dailybonus/newapp.sh >/dev/null 2>&1
+	chmod +x /etc/init.d/jd-dailybonus >/dev/null 2>&1
+	chmod +x /usr/share/jd-dailybonus/newapp.sh >/dev/null 2>&1
 	/etc/init.d/jd-dailybonus enable >/dev/null 2>&1
 fi
 exit 0
