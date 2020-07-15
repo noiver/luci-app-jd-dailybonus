@@ -4,3 +4,5 @@ config global
 	option auto_run '1'
 	option auto_update_time '1'
 	option auto_update '1'
+	option stop '0'
+	option failed '0'

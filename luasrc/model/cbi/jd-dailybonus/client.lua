@@ -20,6 +20,20 @@ o = s:option(Value, "cookie2", translate("Second Cookie"))
 o.rmempty = true
 o.description = translate('双账号用户抓取"账号1"Cookie后, 请勿点击退出账号(可能会导致Cookie失效), 需清除浏览器资料或更换浏览器登录"账号2"抓取.')
 
+o = s:option(Value, "stop", translate("Execute Delay"))
+o.rmempty = false
+o.default = 0
+o.datatype = integer
+o.description = translate("自定义延迟签到,单位毫秒. 默认分批并发无延迟. (延迟作用于每个签到接口, 如填入延迟则切换顺序签到. ) ")
+
+o = s:option(Value, "serverchan", translate("ServerChan SCKEY"))
+o.rmempty = true
+o.description = translate("微信推送，基于Server酱服务，请自行登录 http://sc.ftqq.com/ 绑定并获取 SCKEY (仅在自动签到时推送)")
+
+o = s:option(Flag, "failed", translate("Failed Push"))
+o.rmempty = false
+o.description = translate("仅当cookie失效时推送")
+
 o = s:option(Flag, "auto_update", translate("Auto Update"))
 o.rmempty = false
 o.description = translate("Auto Update Script Service")

@@ -27,22 +27,24 @@ function run()
     local auto_update_time = luci.http.formvalue("auto_update_time")
     local auto_run = luci.http.formvalue("auto_run")
     local auto_run_time = luci.http.formvalue("auto_run_time")
-
+    local stop = luci.http.formvalue("stop")
+    local serverchan = luci.http.formvalue("serverchan")
+    local failed = luci.http.formvalue("failed")
+    local name = ""
+    uci:foreach("vssr", "global", function(s) name = s[".name"] end)
+    
     if cookie ~= " " then
-        local cmd1 =    'uci set jd-dailybonus.@global[0].auto_update="' .. auto_update .. '"'
-        local cmd2 =    'uci set jd-dailybonus.@global[0].auto_update_time="' .. auto_update_time .. '"'
-        local cmd2_1 =  'uci set jd-dailybonus.@global[0].auto_run="' .. auto_run .. '"'
-        local cmd2_2 =  'uci set jd-dailybonus.@global[0].auto_run_time="' .. auto_run_time .. '"'
-        local cmd3 =    'uci set jd-dailybonus.@global[0].cookie="' .. cookie .. '"'
-        local cmd3_1 =  'uci set jd-dailybonus.@global[0].cookie2="' .. cookie2 .. '"'
-        local cmd4 =    'uci commit jd-dailybonus'
-        luci.sys.call(cmd1)
-        luci.sys.call(cmd2)
-        luci.sys.call(cmd2_1)
-        luci.sys.call(cmd2_2)
-        luci.sys.call(cmd3)
-        luci.sys.call(cmd3_1)
-        luci.sys.call(cmd4)
+        uci:set("jd-dailybonus", '@global[0]', 'auto_update', auto_update)
+        uci:set("jd-dailybonus", '@global[0]', 'auto_update_time', auto_update_time)
+        uci:set("jd-dailybonus", '@global[0]', 'auto_run', auto_run)
+        uci:set("jd-dailybonus", '@global[0]', 'auto_run_time', auto_run_time)
+        uci:set("jd-dailybonus", '@global[0]', 'stop', stop)
+        uci:set("jd-dailybonus", '@global[0]', 'cookie', cookie)
+        uci:set("jd-dailybonus", '@global[0]', 'cookie2', cookie2)
+        uci:set("jd-dailybonus", '@global[0]', 'serverchan', serverchan)
+        uci:set("jd-dailybonus", '@global[0]', 'failed', failed)
+	    uci:save("jd-dailybonus")
+	    uci:commit("jd-dailybonus")
         luci.sys.call("/usr/share/jd-dailybonus/newapp.sh -r")
         luci.sys.call("/usr/share/jd-dailybonus/newapp.sh -a")
         e.error = 0

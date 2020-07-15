@@ -21,10 +21,13 @@ usage() {
 
 		Valid options are:
 
-		    -c1 <cookie 1>          First JD Cookie
-		    -c2 <cookie 2>          Second JD Cookie
+		    -a                      Add Cron
+		    -n                      Check 
 		    -r                      Run Script
 		    -u                      Update Script From Server
+		    -s                      Save Cookie And Add Cron
+		    -w                      Background Run With Wechat Message
+		    -h                      Help
 EOF
     exit $1
 }
@@ -51,45 +54,79 @@ cancel() {
 fill_cookie() {
     cookie1=$(uci_get_by_type global cookie)
     if [ ! "$cookie1" = "" ]; then
-        varb="var Key = '$cookie1'" 
+        varb="var Key = '$cookie1';"
         sed -i "s/^var Key =.*/$varb/g" $JD_SCRIPT
     fi
 
     cookie2=$(uci_get_by_type global cookie2)
     if [ ! "$cookie2" = "" ]; then
-        varb2="var DualKey = '$cookie2'" 
+        varb2="var DualKey = '$cookie2';"
         sed -i "s/^var DualKey =.*/$varb2/g" $JD_SCRIPT
+    fi
+
+    stop=$(uci_get_by_type global stop)
+    if [ ! "$stop" = "" ]; then
+        varb3="var stop = $stop;"
+        sed -i "s/^var stop =.*/$varb3/g" $JD_SCRIPT
     fi
 }
 
 remote_ver=$(cat $TEMP_SCRIPT | sed -n '/更新时间/p' | awk '{print $NF}' | sed 's/v//')
 local_ver=$(uci_get_by_type global version)
 
-
 add_cron() {
-	sed -i '/jd-dailybonus/d' $CRON_FILE
-	[ $(uci_get_by_type global auto_run 0) -eq 1 ] && echo '5 '$(uci_get_by_type global auto_run_time)' * * * /bin/bash -c "sleep $[RANDOM % 180]s"; /usr/share/jd-dailybonus/newapp.sh -r' >> $CRON_FILE
-	[ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo '1 '$(uci_get_by_type global auto_update_time)' * * * /usr/share/jd-dailybonus/newapp.sh -u' >> $CRON_FILE
-	crontab $CRON_FILE
+    sed -i '/jd-dailybonus/d' $CRON_FILE
+    [ $(uci_get_by_type global auto_run 0) -eq 1 ] && echo '5 '$(uci_get_by_type global auto_run_time)' * * * /bin/bash -c "sleep $[RANDOM % 180]s"; /usr/share/jd-dailybonus/newapp.sh -w' >>$CRON_FILE
+    [ $(uci_get_by_type global auto_update 0) -eq 1 ] && echo '1 '$(uci_get_by_type global auto_update_time)' * * * /usr/share/jd-dailybonus/newapp.sh -u' >>$CRON_FILE
+    crontab $CRON_FILE
 }
 
 # Run Script
+
+serverchan() {
+    sckey=$(uci_get_by_type global serverchan)
+    failed=$(uci_get_by_type global failed)
+    desc=$(cat /www/JD_DailyBonus.htm | sed 's/$/&\n/g' | sed -e '/左滑/d')
+    if [ $failed -eq 1 ]; then
+        grep "Cookie失效" /www/JD_DailyBonus.htm > /dev/null
+        if [ $? -eq 0 ]; then
+            title="$(date '+%Y年%m月%d日') 京东签到 Cookie 失效"
+            wget-ssl -q --post-data="text=$title~&desp=$desc" https://sc.ftqq.com/$sckey.send
+        fi
+    else
+        title="$(date '+%Y年%m月%d日') 京东签到"
+        wget-ssl -q --post-data="text=$title~&desp=$desc" https://sc.ftqq.com/$sckey.send
+    fi
+
+}
+
 run() {
     fill_cookie
     echo -e $(date '+%Y-%m-%d %H:%M:%S %A') >$LOG_HTM 2>/dev/null
     nohup node $JD_SCRIPT >>$LOG_HTM 2>/dev/null &
 }
 
+back_run() {
+    fill_cookie
+    echo -e $(date '+%Y-%m-%d %H:%M:%S %A') >$LOG_HTM 2>/dev/null
+    node $JD_SCRIPT >>$LOG_HTM 2>/dev/null
+    serverchan
+}
+
+save() {
+    fill_cookie
+    add_cron
+}
+
 # Update Script From Server
 
-check_ver(){
+check_ver() {
     wget-ssl --user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" --no-check-certificate -t 3 -T 10 -q $REMOTE_SCRIPT -O $TEMP_SCRIPT
     if [ $? -ne 0 ]; then
         cancel "501"
     else
         echo $remote_ver
     fi
-    
 }
 
 update() {
@@ -108,7 +145,7 @@ update() {
     fi
 }
 
-while getopts ":anruh" arg; do
+while getopts ":anruswh" arg; do
     case "$arg" in
     a)
         add_cron
@@ -124,6 +161,14 @@ while getopts ":anruh" arg; do
         ;;
     u)
         update
+        exit 0
+        ;;
+    s)
+        save
+        exit 0
+        ;;
+    w)
+        back_run
         exit 0
         ;;
     h)

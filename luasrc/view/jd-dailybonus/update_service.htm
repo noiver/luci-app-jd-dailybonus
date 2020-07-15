@@ -165,27 +165,34 @@
 		//console.log(prefix);
 		if ($("[name='cbid.jd-dailybonus." + prefix + ".auto_update']").is(":checked")) {
 			var auto_update = "1";
+			var auto_update_time = $("[name='cbid.jd-dailybonus." + prefix + ".auto_update_time']").val();
 		} else {
 			var auto_update = "0";
+			var auto_update_time = "0";
 		}
-		var auto_update_time = $("[name='cbid.jd-dailybonus." + prefix + ".auto_update_time']").val();
+		
 		if ($("[name='cbid.jd-dailybonus." + prefix + ".auto_run']").is(":checked")) {
 			var auto_run = "1";
+			var auto_run_time = $("[name='cbid.jd-dailybonus." + prefix + ".auto_run_time']").val();
 		} else {
 			var auto_run = "0";
+			var auto_run_time = "0";
 		}
-		var auto_run_time = $("[name='cbid.jd-dailybonus." + prefix + ".auto_run_time']").val();
+		var stop = $("[name='cbid.jd-dailybonus." + prefix + ".stop']").val();
 		var cookies = $("[name='cbid.jd-dailybonus." + prefix + ".cookie']").val();
 		var cookies2 = $("[name='cbid.jd-dailybonus." + prefix + ".cookie2']").val();
-
-
+		var failed=($("[name='cbid.jd-dailybonus." + prefix + ".failed']").is(":checked"))?"1":"0";
+		var serverchan = $("[name='cbid.jd-dailybonus." + prefix + ".serverchan']").val();
 		var data = {
 			auto_update: auto_update,
 			auto_update_time: auto_update_time,
 			auto_run: auto_run,
 			auto_run_time: auto_run_time,
 			cookies: cookies,
-			cookies2: cookies2
+			cookies2: cookies2,
+			stop: stop,
+			serverchan: serverchan,
+			failed: failed
 		}
 		//console.log(data);
 		$.ajax({
