@@ -2,15 +2,12 @@
 Luci for JD dailybonus Script for Openwrt  
 一个运行在openwrt下的京东签到插件。
 
-### Update Log 2020-07-15  
+### Update Log 2020-07-16  
 
 #### Updates
 
-- NEW: 增加了使用Server酱推送签到结果到微信的功能。
-- NEW: 增加了仅当cookie失效时进行微信推送的功能。
-- NEW: 增加了一个自定义延迟签到的选项，能够避免并发签到带来的负面影响。
-- UPDATE: 修正了在不勾选自动签到或者自动更新选项时，点击保存Cookie并签到无法执行的问题。
-- UPDATE: 代码精简与优化。
+- UPDATE: 修正部分cookie无法更新到脚本的问题。
+
 
 详情见[具体日志](./relnotes.txt)。 
 
