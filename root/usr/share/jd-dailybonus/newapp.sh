@@ -65,9 +65,9 @@ fill_cookie() {
     if [ ! "$cookie2" = "" ]; then
         varb2="var DualKey = '$cookie2';"
         aa=$(sed -n '/var DualKey =/=' $JD_SCRIPT)
-        bb=$((aa-a))
+        bb=$((aa-1))
         sed -i "${aa}d" $JD_SCRIPT
-        sed -i "${bbb}a ${varb}" $JD_SCRIPT
+        sed -i "${bb}a ${varb2}" $JD_SCRIPT
     fi
 
     stop=$(uci_get_by_type global stop)
