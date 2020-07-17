@@ -52,6 +52,7 @@ make -j1 V=s #编译固件
   - 树莓派4      : aarch64_cortex-a72
   - MT7621       : mipsel_24kc
   - x86          : x86_64
+  - 全志 H3       : arm_cortex-a7_neon-vfpv4.ipk
   - 其他         : 参照上面方法自行编译
   - 如果找不到合适的,也可以通过ssh: opkg install node-npm  然后 npm install request -g 进行安装
 
