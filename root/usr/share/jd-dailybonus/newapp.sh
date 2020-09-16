@@ -113,7 +113,7 @@ serverchan() {
 run() {
     fill_cookie
     echo -e $(date '+%Y-%m-%d %H:%M:%S %A') >$LOG_HTM 2>/dev/null
-    nohup node $JD_SCRIPT >>$LOG_HTM 2>/dev/null &
+    node $JD_SCRIPT >>$LOG_HTM 2>&1 &
 }
 
 back_run() {
