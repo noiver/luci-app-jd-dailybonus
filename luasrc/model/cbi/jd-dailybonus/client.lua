@@ -34,8 +34,8 @@ o.datatype = integer
 o.description = translate("自定义延迟签到,单位毫秒. 默认分批并发无延迟. (延迟作用于每个签到接口, 如填入延迟则切换顺序签到. ) ")
 
 o = s:option(ListValue, "serverurl", translate("ServerURL"))
-o:value("sct", translate("SCT"))
 o:value("scu", translate("SCU"))
+o:value("sct", translate("SCT"))
 o.default = "scu"
 o.rmempty = false
 o.description = translate('选择Server酱的推送接口')

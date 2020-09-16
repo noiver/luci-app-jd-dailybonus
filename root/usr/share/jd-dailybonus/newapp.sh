@@ -98,10 +98,8 @@ serverchan() {
     failed=$(uci_get_by_type global failed)
     desc=$(cat /www/JD_DailyBonus.htm | sed 's/$/&\n/g' | sed -e '/左滑/d')
     serverurlflag=$(uci_get_by_type global serverurl)
-    serverurl=
-    if [ "$serverurlflag" = "scu"]; then
-        serverurl=https://sc.ftqq.com/
-    else
+    serverurl=https://sc.ftqq.com/
+    if [ "$serverurlflag" = "sct" ]; then
         serverurl=https://sctapi.ftqq.com/
     fi
     if [ $failed -eq 1 ]; then
