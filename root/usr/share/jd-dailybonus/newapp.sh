@@ -97,15 +97,22 @@ serverchan() {
     sckey=$(uci_get_by_type global serverchan)
     failed=$(uci_get_by_type global failed)
     desc=$(cat /www/JD_DailyBonus.htm | sed 's/$/&\n/g' | sed -e '/左滑/d')
+    serverurlflag=$(uci_get_by_type global serverurl)
+    serverurl=
+    if [ "$serverurlflag" = "scu"]; then
+        serverurl=https://sc.ftqq.com/
+    else
+        serverurl=https://sctapi.ftqq.com/
+    fi
     if [ $failed -eq 1 ]; then
         grep "Cookie失效" /www/JD_DailyBonus.htm > /dev/null
         if [ $? -eq 0 ]; then
             title="$(date '+%Y年%m月%d日') 京东签到 Cookie 失效"
-            wget-ssl -q --output-document=/dev/null --post-data="text=$title~&desp=$desc" https://sc.ftqq.com/$sckey.send
+            wget-ssl -q --output-document=/dev/null --post-data="text=$title~&desp=$desc" $serverurl$sckey.send
         fi
     else
         title="$(date '+%Y年%m月%d日') 京东签到"
-        wget-ssl -q --output-document=/dev/null --post-data="text=$title~&desp=$desc" https://sc.ftqq.com/$sckey.send
+        wget-ssl -q --output-document=/dev/null --post-data="text=$title~&desp=$desc" $serverurl$sckey.send
     fi
 
 }
