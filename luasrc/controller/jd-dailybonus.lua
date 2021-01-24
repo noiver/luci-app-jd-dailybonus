@@ -29,9 +29,6 @@ function run()
     local e = {}
     local uci = luci.model.uci.cursor()
     local data = luci.http.formvalue()
-
-    data.auto_run = data.auto_run ~= nil and data.auto_run or 0
-    data.auto_update = data.auto_update ~= nil and data.auto_update or 0
     uci:tset('jd-dailybonus', '@global[0]', data)
     uci:commit('jd-dailybonus')
     local json_data = {
