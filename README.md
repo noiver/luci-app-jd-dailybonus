@@ -2,20 +2,13 @@
 Luci for JD dailybonus Script for Openwrt  
 一个运行在openwrt下的京东签到插件。
 
-### Update Log 2021-01-20  
+### Update Log 2021-01-24  v1.0.2
 
 #### Updates 
 
-- UPD: 大量代码重构，版本更新到1.0.0
-- UPD: 采用扫码获取cookie(基于Lua 脚本实现)
-- UPD: 增加超时时间设置
-- UPD: 取消了当失败时推送消息的设定每次都会推送 包括手动
-- UPD: 增加telegram推送
-- UPD: 无需修改js脚本设置cookie，才用本地json缓存来读取配置文件
-- UPD: 签到时间拆分为小时+分钟
-- UPD: 取消语言文件，默认为中文
-- UPD: 兼容性做了适配，兼容boorstrap
-- UPD: 默认JS脚本更新到v1.90
+- UPD: 大量代码重构，去除lua-request 使用wget实现网络请求节省大量空间和依赖（感谢@Promix953的更新）
+- FIX: 修复当使用master版本时 提交信息出错的问题
+- FIX: 修复部分文件翻译
 
 
 详情见[具体日志](./relnotes.txt)。 
