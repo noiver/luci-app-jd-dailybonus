@@ -53,7 +53,7 @@ make -j1 V=s #编译固件
 2.需要安装以下依赖：
 ```
 opkg update  
-opkg install luasocket lua-md5 lua-cjson luasec
+opkg install node wget lua
 ```
 3.安装luci-app-jd-dailybonus
 

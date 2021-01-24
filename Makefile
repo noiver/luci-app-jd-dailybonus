@@ -18,7 +18,7 @@ define Package/luci-app-jd-dailybonus
 	SUBMENU:=3. Applications
 	TITLE:=Luci for JD dailybonus Script 
 	PKGARCH:=all
-	DEPENDS:=+node +wget +lua +luasocket +lua-cjson +lua-md5 +luasec
+	DEPENDS:=+node +wget +lua
 endef
 
 define Build/Prepare
