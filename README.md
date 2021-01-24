@@ -48,6 +48,11 @@ make -j1 V=s #编译固件
 opkg update  
 opkg install node wget lua
 ```
+如果更新ipk后无法获取二维码  
+```
+#登录ssh后执行
+rm -rf /tmp/luci-indexcache /tmp/luci-modulecache/*
+```
 3.安装luci-app-jd-dailybonus
 
 ### 感谢
@@ -56,6 +61,10 @@ opkg install node wget lua
 
 ### 我的其它项目
 Argon theme ：https://github.com/jerrykuku/luci-theme-argon  
-Argon theme config  ：https://github.com/jerrykuku/luci-app-argon-config
+Argon theme config  ：https://github.com/jerrykuku/luci-app-argon-config  
 Hello World ：https://github.com/jerrykuku/luci-app-vssr  
 openwrt-nanopi-r1s-h5 ： https://github.com/jerrykuku/openwrt-nanopi-r1s-h5  
+
+### 支持我
+如果你觉得我做的不错，可以赞赏一下。
+<img src="https://raw.githubusercontent.com/jerrykuku/staff/master/photo_2019-12-22_11-40-20.jpg" width="300" height="300">
