@@ -59,12 +59,3 @@ rm -rf /tmp/luci-indexcache /tmp/luci-modulecache/*
 
 感谢[NobyDa](https://github.com/NobyDa) 的脚本。  
 
-### 我的其它项目
-Argon theme ：https://github.com/jerrykuku/luci-theme-argon  
-Argon theme config  ：https://github.com/jerrykuku/luci-app-argon-config  
-Hello World ：https://github.com/jerrykuku/luci-app-vssr  
-openwrt-nanopi-r1s-h5 ： https://github.com/jerrykuku/openwrt-nanopi-r1s-h5  
-
-### 支持我
-如果你觉得我做的不错，可以赞赏一下。
-<img src="https://raw.githubusercontent.com/jerrykuku/staff/master/photo_2019-12-22_11-40-20.jpg" width="300" height="300">
